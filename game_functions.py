@@ -86,10 +86,7 @@ def check_play_button(ai_settings, screen, stats, sb, play_button, ship,
 		stats.game_active = True
 		
 		# Сброс изображений счетов и уровня.
-		sb.prep_score()
-		sb.prep_high_score()
-		sb.prep_level()
-		sb.prep_ships()
+		sb.prep_images()		
 		
 		# Очистка списков пришельцев и пуль.
 		aliens.empty()
@@ -101,13 +98,18 @@ def check_play_button(ai_settings, screen, stats, sb, play_button, ship,
 
 def start_game(ai_settings, screen, stats, ship, aliens, bullets):
 	"""Запускает новую игру при нажатии кнопки P."""
-	
+	# Сброс игровых настроек.
+	ai_settings.initialize_dynamic_settings()
+		
 	# Указатель мыши скрывается.
 	pygame.mouse.set_visible(False)
 	
 	# Сброс игровой статистики.
 	stats.reset_stats()
 	stats.game_active = True
+	
+	# Сброс изображений счетов и уровня.
+	sb.prep_images()	
 	
 	# Очистка списков пришельцев и пуль.
 	aliens.empty()
@@ -163,16 +165,19 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship,
 		check_high_score(stats, sb)
 	
 	if len(aliens) == 0:
-		# Если весь флот уничтожен, начинается следующий уровень.
-		bullets.empty()
-		ai_settings.increase_speed()
+		start_new_level(ai_settings, screen, stats, sb, ship, aliens, bullets)
+
+def start_new_level(ai_settings, screen, stats, sb, ship, aliens, bullets):
+	"""Если весь флот уничтожен, начинается следующий уровень."""
+	bullets.empty()
+	ai_settings.increase_speed()
+	
+	# Увеличение уровня.
+	stats.level += 1
+	sb.prep_level()
+	
+	create_fleet(ai_settings, screen, ship, aliens)
 		
-		# Увеличение уровня.
-		stats.level += 1
-		sb.prep_level()
-		
-		create_fleet(ai_settings, screen, ship, aliens)
-				
 def fire_bullet(ai_settings, screen, ship, bullets):
 	"""Выпускает пулю, если максимум еще не достигнут."""
 	# Создание новой пули и включение ее в группу bullets.
