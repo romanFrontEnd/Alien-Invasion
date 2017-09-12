@@ -25,6 +25,8 @@ class Settings():
 		
 		# Темп роста стоимости пришельцев
 		self.score_scale = 1.5
+		
+		# Инициализация настроек изменяющихся в ходе игры.
 		self.initialize_dynamic_settings()
 		
 	def initialize_dynamic_settings(self):

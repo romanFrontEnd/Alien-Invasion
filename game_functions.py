@@ -27,7 +27,7 @@ def create_alien(ai_settings, screen, aliens, alien_number, row_number):
 	alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
 	aliens.add(alien)
 
-def check_keydown_events(event, ai_settings, screen, stats, ship, aliens,
+def check_keydown_events(event, ai_settings, screen, stats, sb, ship, aliens,
 		bullets):
 	"""Реагирует на нажатие клавиш."""
 	if event.key == pygame.K_RIGHT:
@@ -42,7 +42,7 @@ def check_keydown_events(event, ai_settings, screen, stats, ship, aliens,
 			f_obj.write(str(stats.high_score))
 		sys.exit()
 	elif event.key == pygame.K_p and not stats.game_active:
-		start_game(ai_settings, screen, stats, ship, aliens, bullets)
+		start_game(ai_settings, screen, stats, sb, ship, aliens, bullets)
 			
 def check_keyup_events(event, ship):	
 	"""Реагирует на отпускание клавиш."""
@@ -61,8 +61,8 @@ def check_events(ai_settings, screen, stats, sb, play_button, ship, aliens,
 				f_obj.write(str(stats.high_score))
 			sys.exit()
 		elif event.type == pygame.KEYDOWN:
-			check_keydown_events(event, ai_settings, screen, stats, ship,
-			 aliens, bullets)
+			check_keydown_events(event, ai_settings, screen, stats, sb,
+			 ship, aliens, bullets)
 		elif event.type == pygame.KEYUP:
 			check_keyup_events(event, ship)
 		elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -96,7 +96,7 @@ def check_play_button(ai_settings, screen, stats, sb, play_button, ship,
 		create_fleet(ai_settings, screen, ship, aliens)
 		ship.center_ship()			
 
-def start_game(ai_settings, screen, stats, ship, aliens, bullets):
+def start_game(ai_settings, screen, stats, sb, ship, aliens, bullets):
 	"""Запускает новую игру при нажатии кнопки P."""
 	# Сброс игровых настроек.
 	ai_settings.initialize_dynamic_settings()
@@ -115,7 +115,7 @@ def start_game(ai_settings, screen, stats, ship, aliens, bullets):
 	aliens.empty()
 	bullets.empty()
 	
-	# Создание нового флотп и размещение корабля в центре.
+	# Создание нового флота и размещение корабля в центре.
 	create_fleet(ai_settings, screen, ship, aliens)
 	ship.center_ship()
 			
