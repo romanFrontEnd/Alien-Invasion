@@ -10,6 +10,7 @@ import game_functions as gf
 
 def run_game():
 	# Инициализирует pygame, settings и обьект экрана.
+	pygame.mixer.pre_init(44100, 16, 1, 4096)
 	pygame.init()
 	ai_settings = Settings()
 	screen = pygame.display.set_mode(

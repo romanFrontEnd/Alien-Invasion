@@ -8,8 +8,7 @@ class Bullet(Sprite):
 		"""Создает обьект пули в текущей позиции корабля."""
 		super(Bullet, self).__init__()
 		self.screen = screen
-		sound_shoot = pygame.mixer.Sound('sounds/shoot.wav')
-	
+			
 		# Создание пули в позиции (0,0) и назначение правильной позиции.
 		self.rect = pygame.Rect(0, 0, ai_settings.bullet_width,
 					ai_settings.bullet_height)
@@ -32,4 +31,4 @@ class Bullet(Sprite):
 	def draw_bullet(self):
 		"""Вывод пули на экран."""
 		pygame.draw.rect(self.screen, self.color, self.rect)
-		sound_shoot.play()
+		

@@ -149,6 +149,7 @@ def update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets):
 	for bullet in bullets.copy():
 		if bullet.rect.bottom <= 0:
 			bullets.remove(bullet)
+			
 	check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship,
 	 aliens, bullets)
 	
@@ -184,6 +185,8 @@ def fire_bullet(ai_settings, screen, ship, bullets):
 	if len(bullets) < ai_settings.bullets_allowed:
 		new_bullet = Bullet(ai_settings, screen, ship)
 		bullets.add(new_bullet)
+		sound_shoot = pygame.mixer.Sound('sounds/scifi.wav')
+		sound_shoot.play()
 
 def create_fleet(ai_settings, screen, ship, aliens):
 	"""Создает флот пришельцев."""
